@@ -2,21 +2,33 @@ import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import "./app.css";
 import Profile from "./components/Profile";
-import { lazy, Outlet, Suspense } from "react";
+import { lazy, Outlet, Suspense, useContext, useState } from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Error from "./components/Error";
 import Loader from "./components/loader";
+// import userContext from "./components/UserContext";
+import themeContext from "./components/themeContext";
 
 const AboutUs = lazy(() => import("./components/About"));
 const Search = lazy(() => import("./components/Search"));
 const MemberDetail = lazy(() => import("./components/memberDetail"));
 const Main = () => {
+  // const [emailID, setemailID] = useState("prakashrajotiya@gmail.com");
+  const [systemTheme, setsystemTheme] = useState("light");
+  // const { theme, settheme } = useContext(themeContext);
   return (
     <div className="main">
-      <Header />
-      <div className="container">
-        <Outlet />
-      </div>
+      <themeContext.Provider
+        value={{ theme: systemTheme, settheme: setsystemTheme }}
+      >
+        {/* {theme} */}
+        {/* <userContext.Provider value={{ email: emailID, setemail: setemailID }}> */}
+        <Header />
+        <div className="container-fluid px-0">
+          <Outlet />
+        </div>
+        {/* </userContext.Provider> */}
+      </themeContext.Provider>
     </div>
   );
 };

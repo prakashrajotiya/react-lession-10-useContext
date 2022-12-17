@@ -1,11 +1,13 @@
 import SearchBar from "./searchBar";
 import MemberList from "./MemberList";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Location from "./Location";
+import themeContext from "./themeContext";
 const Search = () => {
   const [memberData, setmemberData] = useState([]);
   const [memberList, setmemberList] = useState([]);
   const [loading, setloading] = useState(true);
+  const { theme } = useContext(themeContext);
   useEffect(() => {
     apiCall1();
   }, []);
@@ -37,7 +39,12 @@ const Search = () => {
     <>
       <SearchBar memberList={memberData} setmemberData={setmemberList} />
       {/* <Location /> */}
-      <div className="memberlist">
+      {/* {theme} */}
+      <div
+        className={`memberlist px-3 ${
+          theme == "light" ? "themelight" : "themedark"
+        }`}
+      >
         <div className="row gutter-md">
           <MemberList memberData={memberList} loading={loading} />
         </div>

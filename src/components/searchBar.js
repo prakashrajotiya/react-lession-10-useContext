@@ -1,9 +1,9 @@
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import themeContext from "./themeContext";
 const SearchBar = ({ memberList, setmemberData }) => {
   // input search var
   let [searchValue, setsearchValue] = useState("");
-
+  const { theme } = useContext(themeContext);
   //   form submit method
   const formSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +15,10 @@ const SearchBar = ({ memberList, setmemberData }) => {
   };
 
   return (
-    <form onSubmit={formSubmit} className="searchform">
+    <form
+      onSubmit={formSubmit}
+      className={`searchform ${theme == "light" ? "themelight" : "themedark"}`}
+    >
       <input
         value={searchValue}
         onChange={(e) => {
